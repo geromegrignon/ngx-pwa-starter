@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import {getContacts} from "./core/utils/contact-picker";
 
 @Component({
   selector: 'app-root',
@@ -6,5 +7,14 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  title = 'ngx-pwa-starter';
+  contacts: any = null;
+  error: any = null;
+
+  async retrieveContacts(): Promise<void> {
+    try {
+      this.contacts = await getContacts();
+    } catch (e) {
+      this.error = e;
+    }
+  }
 }
